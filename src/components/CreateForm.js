@@ -52,7 +52,7 @@ export default (props) => {
                   </div>
                   <div className="form-group col-md-12" align="right">
                     <div className="col-sm-12">
-                      <button type="button" className="btn btn-default" onClick={() => props.setAddCompanyflag(false)}>Back</button>
+                      <button type="button" className="btn btn-warning" onClick={() => props.setAddCompanyflag(false)}>Back</button>
                       <input type="submit" name="commit" className="btn btn-primary" value="Create Company" data-disable-with="Create Company"/>
                     </div>
                   </div>

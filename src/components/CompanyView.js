@@ -45,7 +45,7 @@ export default (props) => {
                 <div className="col-sm-5">
                   <input className="btn btn-primary" type="button" value="Edit" onClick={() => props.trggierEditCompany(company.id)}/> 
                   <input className="btn btn-danger" type="button" value="Delete" onClick={() => props.trggierDeleteCompany(company.id)}/>
-                  <input className="btn btn-warning" type="button" value="Back" onClick={() => props.setviewCompanyflag(false)}/>
+                  <input className="btn btn-warning" type="button" value="Back" onClick={() => props.listCompany()}/>
                 </div>
               </div><br/>
               <p className="card-text">{company.description}</p>

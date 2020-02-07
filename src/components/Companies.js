@@ -22,7 +22,7 @@ function Companies(){
 	const [getcategoryaddflag, setaddcategoryflag] = useState(false)
   
   useEffect(() => {
-  	const url = "http://localhost:5000/companies.json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -49,9 +49,26 @@ function Companies(){
   	setaddcategoryflag(true)
   }
 
+  function listCompany(){
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
+    fetch(url, {
+	  	method: 'GET',
+	  	headers: {
+	    'Content-Type': 'application/json',
+	    'Accept': 'application/json',
+	  	},
+	  })
+    .then(res => res.json())
+    .then(response => {
+			setviewCompanyflag(false)
+      setlistCompany(response.message);
+    })
+    .catch(error => console.log(error));
+  }
+
   function CreateCompany(event){
   	event.preventDefault();
-  	const url = "http://localhost:5000/companies.json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
   	let payload = {name: event.target.name.value,
   	city: event.target.city.value,
 	  state: event.target.state.value,
@@ -68,18 +85,20 @@ function Companies(){
     .then(res =>{if (!res.ok) { throw res }
     return res.json()})
     .then(response => {
-      setviewCompany(response);
+      setviewCompany(response.message);
       setaddCompanyflag(false);
       setviewCompanyflag(true);
     })
     .catch( err => {
-	    alert(err.statusText)
+	    err.text().then( errorMessage => {
+	      alert(JSON.parse(errorMessage).message)
+	    })
 	  })
   }
 
   function trggierEditCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "http://localhost:5000/companies/"+comp_id+"/edit.json?"
+	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+"/edit.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -95,13 +114,15 @@ function Companies(){
       seteditCompanyflag(true);
     })
     .catch( err => {
-	    alert(err.statusText)
+	    err.text().then( errorMessage => {
+	      alert(JSON.parse(errorMessage).message)
+	    })
 	  })
   }
 
   function UpdateCompany(event){
   	event.preventDefault();
-  	const url = "http://localhost:5000/companies/"+event.target.id.value+".json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+event.target.id.value+".json?"
   	let payload = {id: event.target.id.value,
   	name: event.target.name.value,
   	city: event.target.city.value,
@@ -123,13 +144,15 @@ function Companies(){
       setviewCompanyflag(true);
     })
     .catch( err => {
-	    alert(err.statusText)
+	    err.text().then( errorMessage => {
+	      alert(JSON.parse(errorMessage).message)
+	    })
 	  })
   }
 
   function ViewCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "http://localhost:5000/companies/"+comp_id+".json?"
+	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -144,13 +167,15 @@ function Companies(){
       setviewCompanyflag(true);
     })
     .catch( err => {
-	    alert(err.statusText)
+	    err.text().then( errorMessage => {
+	      alert(JSON.parse(errorMessage).message)
+	    })
 	  })
   }
 
   function trggierDeleteCompany(comp_id){
   	setviewCompanyid(comp_id)
-  	const url = "http://localhost:5000/companies/"+comp_id+".json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
   	fetch(url, {
 	  	method: 'DELETE',
 	  	headers: {
@@ -166,7 +191,9 @@ function Companies(){
       seteditCompanyflag(false);
     })
     .catch( err => {
-	    alert(err.statusText)
+	    err.text().then( errorMessage => {
+	      alert(JSON.parse(errorMessage).message)
+	    })
 	  })
   }
 
@@ -187,7 +214,7 @@ function Companies(){
 				categories={getcompanyview.categories}
 				trggierEditCompany={(id) => trggierEditCompany(id)}
 				trggierDeleteCompany={(id) => trggierDeleteCompany(id)}
-				setviewCompanyflag={(isTrue) => setviewCompanyflag(isTrue)}
+				listCompany={() => listCompany()}
 				updateCompanyView={ (id) =>  ViewCompany(id) }
 			/>
 		)

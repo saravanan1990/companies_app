@@ -6,7 +6,7 @@ export default (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const url = "http://localhost:5000/founders.json?"
+    const url = "https://quiet-waters-07934.herokuapp.com/founders.json?"
   	let payload = {
       name: event.target.name.value,
       title: event.target.title.value,
@@ -28,8 +28,10 @@ export default (props) => {
       props.handleClose()
     })
     .catch( err => {
-	    alert(err.statusText)
-	  })
+      err.text().then( errorMessage => {
+        alert(JSON.parse(errorMessage).message)
+      })
+    })
 
   }
 
