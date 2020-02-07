@@ -39,7 +39,7 @@ export default (props) => {
                   <p><i className="fa fa-calendar"></i> {company.founded_on}</p>
                 </div>
                 <div className="col-sm-2">
-                  <p><i className="fa fa-map-marker"></i> {company.city}{company.state}</p>
+                  <p><i className="fa fa-map-marker"></i> {company.city}, {company.state}</p>
                 </div>
                 <div className="separator"></div>
                 <div className="col-sm-5">

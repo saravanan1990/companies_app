@@ -18,18 +18,18 @@ export default (props) => {
                 <form onSubmit={event => props.UpdateCompany(event)}>
                   <div className="form-group col-md-12">
                     <label for="formGroupExampleInput"><label for="company_name">Company Name</label>:</label>
-                    <input type="text" name="name" id="name" value={company.name} className="form-control"/>
+                    <input type="text" name="name" id="name" defaultValue={company.name} className="form-control"/>
                   </div>
                   <div className="form-group col-md-12">
                     <div className="form-row">
                       <div className="form-group col-md-5">
                         <label for="inputCity"><label for="company_city">City</label>:</label>
-                        <input type="text" name="city" id="city" value={company.city} className="form-control"/>
-                        <input type="hidden" name="id" id="id" value={company.id} className="form-control"/>
+                        <input type="text" name="city" id="city" defaultValue={company.city} className="form-control"/>
+                        <input type="hidden" name="id" id="id" defaultValue={company.id} className="form-control"/>
                       </div>
                       <div className="form-group col-md-3">
                         <label for="inputState"><label for="company_state">State</label>:</label>
-                        <input type="text" name="state" id="state" value={company.state} className="form-control"/>
+                        <input type="text" name="state" id="state" defaultValue={company.state} className="form-control"/>
                       </div>
                       <div className="form-group col-md-4">
                         <label for="inputState"><label for="company_founded_date">Founded date</label>:</label>
@@ -51,7 +51,7 @@ export default (props) => {
                   </div>
                   <div className="form-group col-md-12">
                     <label for="exampleFormControlTextarea1"><label for="company_description">Description</label>:</label>
-                    <textarea name="description" id="description" rows="3" value={company.description} className="form-control"></textarea>
+                    <textarea name="description" id="description" rows="3" defaultValue={company.description} className="form-control"></textarea>
                   </div>
                   <div className="form-group col-md-12" align="right">
                     <div className="col-sm-12">
