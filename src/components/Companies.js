@@ -25,7 +25,7 @@ function Companies(){
 	const [getsearchcompanylist, setsearchcompanylist] = useState([]);
   
   useEffect(() => {
-  	const url = "http://localhost:5000/companies.json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -53,7 +53,7 @@ function Companies(){
   }
 
   function listCompany(){
-  	const url = "http://localhost:5000/companies.json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -71,7 +71,7 @@ function Companies(){
 
   const handleSubmit = (event) => {
   	event.preventDefault();
-		const url = "http://localhost:5000/companies/search_companies.json?"
+		const url = "https://quiet-waters-07934.herokuapp.com/companies/search_companies.json?"
 		let payload = {
       name: event.target.search.value
     }
@@ -94,7 +94,7 @@ function Companies(){
 
   function CreateCompany(event){
   	event.preventDefault();
-  	const url = "http://localhost:5000/companies.json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
   	let payload = {name: event.target.name.value,
   	city: event.target.city.value,
 	  state: event.target.state.value,
@@ -124,7 +124,7 @@ function Companies(){
 
   function trggierEditCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "http://localhost:5000/companies/"+comp_id+"/edit.json?"
+	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+"/edit.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -148,7 +148,7 @@ function Companies(){
 
   function UpdateCompany(event){
   	event.preventDefault();
-  	const url = "http://localhost:5000/companies/"+event.target.id.value+".json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+event.target.id.value+".json?"
   	let payload = {id: event.target.id.value,
   	name: event.target.name.value,
   	city: event.target.city.value,
@@ -178,7 +178,7 @@ function Companies(){
 
   function ViewCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "http://localhost:5000/companies/"+comp_id+".json?"
+	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -201,7 +201,7 @@ function Companies(){
 
   function trggierDeleteCompany(comp_id){
   	setviewCompanyid(comp_id)
-  	const url = "http://localhost:5000/companies/"+comp_id+".json?"
+  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
   	fetch(url, {
 	  	method: 'DELETE',
 	  	headers: {
