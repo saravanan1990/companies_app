@@ -6,7 +6,7 @@ export default (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const url = "https://quiet-waters-07934.herokuapp.com/categories.json?"
+    const url = "http://localhost:5000/categories.json?"
   	let payload = {
       name: event.target.name.value,
       company_id: props.companyId

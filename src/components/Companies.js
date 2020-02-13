@@ -20,9 +20,12 @@ function Companies(){
 	const [getfounderaddflag, setaddfounderflag] = useState(false)
 
 	const [getcategoryaddflag, setaddcategoryflag] = useState(false)
+
+	const [getsearchcompanyflag, setsearchcompanyflag] = useState(false)
+	const [getsearchcompanylist, setsearchcompanylist] = useState([]);
   
   useEffect(() => {
-  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
+  	const url = "http://localhost:5000/companies.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -50,7 +53,7 @@ function Companies(){
   }
 
   function listCompany(){
-  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
+  	const url = "http://localhost:5000/companies.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -66,9 +69,32 @@ function Companies(){
     .catch(error => console.log(error));
   }
 
+  const handleSubmit = (event) => {
+  	event.preventDefault();
+		const url = "http://localhost:5000/companies/search_companies.json?"
+		let payload = {
+      name: event.target.search.value
+    }
+    fetch(url, {
+	  	method: 'POST',
+	  	body: JSON.stringify({company: payload}),
+	  	headers: {
+	    'Content-Type': 'application/json',
+	    'Accept': 'application/json',
+	  	},
+	  })
+    .then(res => res.json())
+    .then(response => {
+    	// setlistCompany(response.message);
+			setsearchcompanyflag(true)
+      setlistCompany(response.message);
+    })
+    .catch(error => console.log(error));
+  }
+
   function CreateCompany(event){
   	event.preventDefault();
-  	const url = "https://quiet-waters-07934.herokuapp.com/companies.json?"
+  	const url = "http://localhost:5000/companies.json?"
   	let payload = {name: event.target.name.value,
   	city: event.target.city.value,
 	  state: event.target.state.value,
@@ -98,7 +124,7 @@ function Companies(){
 
   function trggierEditCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+"/edit.json?"
+	  const url = "http://localhost:5000/companies/"+comp_id+"/edit.json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -122,7 +148,7 @@ function Companies(){
 
   function UpdateCompany(event){
   	event.preventDefault();
-  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+event.target.id.value+".json?"
+  	const url = "http://localhost:5000/companies/"+event.target.id.value+".json?"
   	let payload = {id: event.target.id.value,
   	name: event.target.name.value,
   	city: event.target.city.value,
@@ -152,7 +178,7 @@ function Companies(){
 
   function ViewCompany(comp_id){
   	setviewCompanyid(comp_id)
-	  const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
+	  const url = "http://localhost:5000/companies/"+comp_id+".json?"
     fetch(url, {
 	  	method: 'GET',
 	  	headers: {
@@ -175,7 +201,7 @@ function Companies(){
 
   function trggierDeleteCompany(comp_id){
   	setviewCompanyid(comp_id)
-  	const url = "https://quiet-waters-07934.herokuapp.com/companies/"+comp_id+".json?"
+  	const url = "http://localhost:5000/companies/"+comp_id+".json?"
   	fetch(url, {
 	  	method: 'DELETE',
 	  	headers: {
@@ -230,8 +256,66 @@ function Companies(){
 		)
   }
 
+
+  if (getsearchcompanyflag){
+  	 return (
+			<div className="container">
+			  <div className="row">
+					<form onSubmit={handleSubmit}>
+					<div className="form-group">
+					<input type="text" name="search" id="search" className="form-control" autocomplete="off"/>
+					</div>
+					<div className="form-group">
+					<button type="submit" className="btn btn-warning">Search</button>
+					</div>
+					</form>
+				</div>
+
+				<div className="row">
+					<div className="col-md-12">
+						<div className="col-md-12" align="center"><br/>
+							<h3 class="card-title"><span id="title">List of Companies</span></h3>
+						</div>
+						<div class="col-md-12">
+							{getcompanylist.map((company) => (
+								<div className="card mb-4">
+									<div className="card-body">
+										<div className="row">
+											<div className="col-sm-6"><h4>{company.name}</h4></div>
+											<div className="col-sm-4">{company.city} {company.state}</div>
+											<div className="col-sm-2"><input className="btn btn-primary" type="button" value="View" onClick={() => ViewCompany(company.id)}/></div>
+										</div><br/>
+										<div>{company.description}</div>
+									</div>
+								</div>
+							))}
+						</div>
+
+						<div className="col-md-12" align="right">
+							<input className="btn btn-primary" type="button" value="Add" onClick={() => AddCompany()}/>
+						</div>
+
+					</div>
+				</div>
+			
+		</div>
+		)
+  }
+
   return (
 		<div className="container">
+
+		  <div className="row">
+				<form onSubmit={handleSubmit}>
+				<div className="form-group">
+				<input type="text" name="search" id="search" className="form-control" autocomplete="off"/>
+				</div>
+				<div className="form-group">
+				<button type="submit" className="btn btn-warning">Search</button>
+				</div>
+				</form>
+			</div>
+
 			<div className="row">
 				<div className="col-md-12">
 					<div className="col-md-12" align="center"><br/>
@@ -258,6 +342,7 @@ function Companies(){
 
 				</div>
 			</div>
+			
 		</div>
 	)
 }
